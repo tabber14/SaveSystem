@@ -1,0 +1,43 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class MoneyController : MonoBehaviour, IDataPersistence
+{
+    public TMP_Text moneyText;
+    public Text moneyButtonText;
+    public double moneyAmount;
+    public double coinClickValue;
+
+    private void Start()
+    {
+        coinClickValue = 1;
+        moneyAmount = 0;
+    }
+
+    public void Update()
+    {
+        moneyText.text = "$" + "" + moneyAmount.ToString("F1");
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            moneyAmount += 10000;
+        }
+    }
+
+    public void AddMoney()
+    {
+        moneyAmount += coinClickValue;
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.moneyAmount = data.moneyAmount;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.moneyAmount = this.moneyAmount;
+    }
+}
